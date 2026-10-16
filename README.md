@@ -1,104 +1,106 @@
+**English** · [中文](README.zh-CN.md)
+
 # research-report-figures
 
-一个用于生成**「专业调研 + 图文结合」Word 报告**的 Agent Skill。
+An Agent Skill for generating **professional research reports with figures, delivered as Word documents**.
 
-把「主题 → 调研 → 配图 → Word 报告 → 版面检查」固化成可重复执行的流程，让 AI 助手按同一套标准产出带目录、图号、图注、来源与参考文献的 `.docx`，并渲染逐页检查排版。
+It turns the pipeline "topic → research → figures → Word report → layout check" into a repeatable process, so an AI assistant produces `.docx` files with a table of contents, figure numbers, captions, sources and references — then renders every page to verify the layout.
 
-## 它解决什么问题
+## The problem it solves
 
-让 AI 写报告不难，难的是**配图靠谱**。常见的失败方式是：随手画个流程图冒充分子结构、编一个看起来合理的文献引用、图表数据来源不明。
+Getting an AI to *write* a report is easy. Getting it to **illustrate it credibly** is hard. The usual failure modes: a flow chart sketch passed off as a molecular structure, a plausible-looking fabricated citation, chart data with no traceable origin.
 
-本 Skill 用三条硬规则把这些问题挡在生成之前：
+This Skill blocks those failures before generation, with three hard rules:
 
-1. **分子结构式、化学结构、抗体等生物大分子、真实实验数据 —— 必须引用真实来源原图**，禁止自绘或用流程图冒充
-2. **禁止编造文献出处、数据和图片来源**，查不到就写「未找到可核实来源」
-3. **真实图片必须有原始链接和许可信息**，缺任意一项，构建脚本直接拒绝生成文档
+1. **Molecular structures, chemical structures, biological macromolecules (e.g. antibodies) and real experimental data must be cited from genuine sources** — self-drawn substitutes and flow-chart stand-ins are forbidden.
+2. **Fabricating citations, data, or image sources is forbidden.** If a source cannot be found, write "no verifiable source found".
+3. **Every real image must carry its original URL and license.** If either is missing, the build script refuses to generate the document.
 
-## 三层配图策略
+## Three-tier figure strategy
 
-| 层级 | 适用内容 | 工具 |
+| Tier | Applies to | Tooling |
 | --- | --- | --- |
-| 第 1 层 · 技术示意图 | 工艺流程、技术路线、层级结构、数据对比 | Mermaid / Graphviz / matplotlib |
-| 第 2 层 · 真实图片 | 实物照片、分子结构、文献原图、真实谱图 | 联网检索 + 来源登记 |
-| 第 3 层 · AI 生成图 | 仅封面与装饰性插图，默认关闭 | 需在图注标注「AI 生成」 |
+| Tier 1 · Technical schematics | Process flows, technical roadmaps, hierarchies, data comparisons | Mermaid / Graphviz / matplotlib |
+| Tier 2 · Real images | Equipment photos, molecular structures, figures from literature, real spectra | Web retrieval + source registration |
+| Tier 3 · AI-generated images | Covers and decorative illustrations only; off by default | Must be captioned "AI-generated" |
 
-## 安装
+## Installation
 
-把本仓库放入你的 Agent 技能目录，例如：
+Place this repository in your Agent's skills directory, for example:
 
 ```
-~/.workbuddy/skills/research-report-figures/     # WorkBuddy / Claude Code 风格的用户级技能目录
+~/.workbuddy/skills/research-report-figures/     # user-level skills dir (WorkBuddy / Claude Code style)
 ```
 
-目录结构：
+Directory layout:
 
 ```
 research-report-figures/
-├── SKILL.md                  # 技能主文件（流程与红线规则）
+├── SKILL.md                  # Main skill file (workflow and hard rules)
 ├── references/
-│   └── content-syntax.md     # content.md 语法参考
-├── scripts/                  # 8 个工具脚本
-└── examples/                 # 示例报告
+│   └── content-syntax.md     # content.md syntax reference
+├── scripts/                  # 8 utility scripts
+└── examples/                 # Example report
 ```
 
-## 依赖
+## Dependencies
 
-| 依赖 | 用途 | 说明 |
+| Dependency | Used for | Notes |
 | --- | --- | --- |
-| Python 3 | 运行构建与图表脚本 | 需安装 `python-docx`、`Pillow`、`matplotlib`、`pypdfium2` |
-| Node.js | Mermaid 渲染 | 需 `playwright`、`mermaid` |
-| PowerShell 7+ | Graphviz 渲染、Word 导 PDF | Windows 环境 |
-| Graphviz | 结构图渲染 | 需 `dot` 在 PATH 中 |
-| Microsoft Word | Word 转 PDF（质检环节） | 仅 Windows + 本机装有 Word 时需要 |
+| Python 3 | Build and chart scripts | Requires `python-docx`, `Pillow`, `matplotlib`, `pypdfium2` |
+| Node.js | Mermaid rendering | Requires `playwright`, `mermaid` |
+| PowerShell 7+ | Graphviz rendering, Word-to-PDF export | Windows |
+| Graphviz | Graph rendering | `dot` must be on PATH |
+| Microsoft Word | Word-to-PDF export (QA step) | Only needed on Windows with Word installed |
 
-安装 Python 依赖：
+Install the Python dependencies:
 
 ```bash
 pip install python-docx Pillow matplotlib pypdfium2
 ```
 
-## 路径配置（重要）
+## Path configuration (important)
 
-`SKILL.md` 中使用 `<TOOLS>`、`<PYTHON>` 作为占位符。首次使用前，请替换为你本机的实际路径，或让助手在使用时替换：
+`SKILL.md` uses `<TOOLS>` and `<PYTHON>` as placeholders. Before first use, replace them with real paths on your machine (or let the assistant substitute them at runtime):
 
-- `<TOOLS>` → 本仓库 `scripts/` 目录的绝对路径
-- `<PYTHON>` → 装有上述依赖的 Python 解释器路径
-- `node` / `pwsh` → 本机对应可执行文件
+- `<TOOLS>` → absolute path to this repository's `scripts/` directory
+- `<PYTHON>` → path to a Python interpreter with the dependencies above installed
+- `node` / `pwsh` → the corresponding executables on your machine
 
-`scripts/mermaid_render.mjs` 支持用环境变量指定依赖位置：
+`scripts/mermaid_render.mjs` accepts environment variables for dependency locations:
 
-| 环境变量 | 含义 | 默认值 |
+| Variable | Meaning | Default |
 | --- | --- | --- |
-| `CODEX_NODE_MODULES` | 包含 playwright 的 `node_modules` 目录 | `<TOOLS>/../node/node_modules` |
-| `MERMAID_JS` | `mermaid.min.js` 的完整路径 | `<CODEX_NODE_MODULES>/mermaid/dist/mermaid.min.js` |
+| `CODEX_NODE_MODULES` | `node_modules` directory containing playwright | `<TOOLS>/../node/node_modules` |
+| `MERMAID_JS` | Full path to `mermaid.min.js` | `<CODEX_NODE_MODULES>/mermaid/dist/mermaid.min.js` |
 
-## 使用
+## Usage
 
-在支持 Skill 的 AI 助手中直接提出需求即可触发，例如：
+Trigger it directly in any Skill-capable AI assistant, for example:
 
-> 帮我写一份《钠离子电池技术路线调研报告》，要图文结合，配工艺流程图和数据图表
+> Write a "Sodium-ion battery technology roadmap" research report with figures — include a process flow diagram and data charts.
 
-助手会按 `SKILL.md` 的标准流程执行：联网调研 → 配图规划 → 生成图与登记来源 → 装配 Word → 逐页版面检查 → 交付。
+The assistant follows the standard workflow in `SKILL.md`: web research → figure planning → render and register sources → assemble the Word document → page-by-page layout check → delivery.
 
-产出目录结构：
+Output layout:
 
 ```
-<工作目录>/reports/<主题>/
-├── content.md            # 报告正文
-├── assets/               # 图片、图形源码、manifest.json
-├── assets/qa/            # 版面检查产物（内部使用）
-└── <报告标题>.docx        # 最终交付
+<working dir>/reports/<topic>/
+├── content.md            # Report body
+├── assets/               # Images, diagram sources, manifest.json
+├── assets/qa/            # Layout QA artifacts (internal)
+└── <report title>.docx   # Final deliverable
 ```
 
-## 示例
+## Example
 
-`examples/` 下为完整示例报告，可直接查看产出效果。
+`examples/` contains a complete example report — see the output for yourself.
 
-## 说明
+## Notes
 
-- 本技能为**环境无关**设计：所有路径通过占位符与环境变量配置，不绑定任何特定机器。
-- 联网检索环节需要你的助手具备网络访问能力，并在受限 sandbox 中经你批准。
-- 真实图片的许可信息由使用者自行确认，对外发布前请核对原始来源的授权条款。
+- This Skill is **environment-agnostic**: all paths are configured via placeholders and environment variables, bound to no specific machine.
+- The web research step requires your assistant to have network access, granted per-request under a sandbox.
+- License details for real images are the user's responsibility to verify; check the original source's terms before republishing.
 
 ## License
 
