@@ -1,0 +1,19 @@
+# 运行产物
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# 报告生成过程中的内部质检产物
+assets/qa/
+reports/*/assets/qa/
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 临时文件
+*.tmp
+*.log
