@@ -1,0 +1,52 @@
+{
+  "figures": [
+    {
+      "figure_id": "fig-03",
+      "output": "examples/钠离子电池正极技术路线调研/assets/fig-03-cost.png",
+      "type": "bar",
+      "title": "三大正极路线 2026 年量产成本对比",
+      "categories": ["层状氧化物", "普鲁士蓝类", "聚阴离子型"],
+      "series": [{"name": "量产成本（万元/吨）", "values": [2.3, 2.1, 2.7]}],
+      "xlabel": "正极技术路线",
+      "ylabel": "万元/吨",
+      "figsize": [8.0, 4.4],
+      "dpi": 300,
+      "value_labels": true,
+      "y_min": 0,
+      "y_max": 3.2,
+      "colors": ["#1F4E79", "#2E75B6", "#9DC3E6"]
+    },
+    {
+      "figure_id": "fig-04",
+      "output": "examples/钠离子电池正极技术路线调研/assets/fig-04-energy.png",
+      "type": "bar",
+      "title": "三大正极路线量产能量密度对比",
+      "categories": ["层状氧化物", "普鲁士蓝类", "聚阴离子型"],
+      "series": [{"name": "能量密度（Wh/kg）", "values": [160, 150, 120]}],
+      "xlabel": "正极技术路线",
+      "ylabel": "Wh/kg",
+      "figsize": [8.0, 4.4],
+      "dpi": 300,
+      "value_labels": true,
+      "y_min": 0,
+      "y_max": 190,
+      "colors": ["#1F4E79", "#2E75B6", "#9DC3E6"]
+    },
+    {
+      "figure_id": "fig-05",
+      "output": "examples/钠离子电池正极技术路线调研/assets/fig-05-cycle.png",
+      "type": "bar",
+      "title": "循环寿命对比：聚阴离子路线与层状氧化物路线",
+      "categories": ["聚阴离子型（NFPP）", "层状氧化物（动力端）"],
+      "series": [{"name": "循环寿命（次）", "values": [15000, 1800]}],
+      "xlabel": "正极技术路线",
+      "ylabel": "循环次数",
+      "figsize": [7.4, 4.2],
+      "dpi": 300,
+      "value_labels": true,
+      "y_min": 0,
+      "y_max": 17000,
+      "colors": ["#548235", "#C55A11"]
+    }
+  ]
+}

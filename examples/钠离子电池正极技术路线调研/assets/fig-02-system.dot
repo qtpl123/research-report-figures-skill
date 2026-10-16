@@ -1,0 +1,43 @@
+digraph materials {
+  rankdir=LR;
+  graph [fontname="Microsoft YaHei", fontsize=12];
+  node [shape=box, style="rounded,filled", fillcolor="#EAF2FA", color="#1F4E79",
+        fontname="Microsoft YaHei", fontsize=11, margin="0.16,0.09"];
+  edge [color="#7F7F7F", arrowsize=0.7];
+
+  NA [label="钠离子电池\n材料体系", fillcolor="#1F4E79", fontcolor="white"];
+
+  P  [label="正极", fillcolor="#DEEBF7"];
+  N  [label="负极", fillcolor="#DEEBF7"];
+  E  [label="电解液", fillcolor="#DEEBF7"];
+  F  [label="集流体", fillcolor="#DEEBF7"];
+
+  NA -> P; NA -> N; NA -> E; NA -> F;
+
+  P -> P1 [label="能量密度优先"];
+  P -> P2 [label="循环寿命优先"];
+  P -> P3 [label="成本优先"];
+  P1 [label="层状氧化物"];
+  P2 [label="聚阴离子型"];
+  P3 [label="普鲁士蓝类"];
+
+  N -> N1 [label="商业主流"];
+  N -> N2 [label="成本较低"];
+  N -> N3 [label="探索阶段"];
+  N1 [label="硬碳"];
+  N2 [label="软碳"];
+  N3 [label="合金类"];
+
+  E -> E1;
+  E -> E2;
+  E -> E3;
+  E1 [label="六氟磷酸钠"];
+  E2 [label="溶剂体系"];
+  E3 [label="功能添加剂"];
+
+  F -> F1 [label="正负通用，省去铜箔"];
+  F1 [label="铝箔"];
+
+  { rank=same; P1; P2; P3; }
+  { rank=same; N1; N2; N3; }
+}

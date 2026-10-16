@@ -1,0 +1,79 @@
+{
+  "figures": [
+    {
+      "id": "fig-01",
+      "file": "assets/fig-01-chain.png",
+      "type": "schematic",
+      "title": "钠离子电池产业链与正极路线分岔",
+      "generator": "mermaid",
+      "source": "依据中国能源产业发展网、中研网公开行业资料整理",
+      "note": "本图为技术示意图，非真实照片"
+    },
+    {
+      "id": "fig-02",
+      "file": "assets/fig-02-system.png",
+      "type": "schematic",
+      "title": "钠离子电池材料体系构成",
+      "generator": "graphviz",
+      "source": "依据中能建能源研究院《钠离子电池技术及市场发展趋势研究报告》整理",
+      "note": "本图为技术示意图，非真实照片"
+    },
+    {
+      "id": "fig-03",
+      "file": "assets/fig-03-cost.png",
+      "type": "chart",
+      "title": "三大正极路线 2026 年量产成本对比",
+      "generator": "matplotlib",
+      "source": "星耀新能源《2026 钠离子电池正极材料行业动态》",
+      "note": "数据为该来源披露的 2026 年量产口径，不同机构统计口径存在差异"
+    },
+    {
+      "id": "fig-04",
+      "file": "assets/fig-04-energy.png",
+      "type": "chart",
+      "title": "三大正极路线量产能量密度对比",
+      "generator": "matplotlib",
+      "source": "星耀新能源《2026 钠离子电池正极材料行业动态》",
+      "note": "数据为该来源披露的 2026 年量产口径，不同机构统计口径存在差异"
+    },
+    {
+      "id": "fig-05",
+      "file": "assets/fig-05-cycle.png",
+      "type": "chart",
+      "title": "循环寿命对比：聚阴离子路线与层状氧化物路线",
+      "generator": "matplotlib",
+      "source": "西能能源行业分析、同花顺财经《钠离子电池产业化最新进展》",
+      "note": "两路线数据来自不同来源，仅作量级对比，非同一测试条件下的实测结果"
+    },
+    {
+      "id": "fig-06",
+      "file": "assets/fig-06-cells.jpg",
+      "type": "photo",
+      "title": "钠离子电芯实物（2.5 Ah）",
+      "origin": "real-photo",
+      "source": "Wikimedia Commons",
+      "author": "Brihaspati",
+      "url": "https://commons.wikimedia.org/wiki/File:Sodium_ion_2.5_Ah_cells.jpg",
+      "license": "CC BY-SA 4.0",
+      "accessed": "2026-10-16",
+      "sha256": "8a821994abca44320253b591bf1451d4bc6c0eae4859dbabc49ec954673d2be2",
+      "pixels": "1968x2166",
+      "format": "MPO"
+    },
+    {
+      "id": "fig-07",
+      "file": "assets/fig-07-systems.png",
+      "type": "photo",
+      "title": "钠离子电池体系构成（文献原图）",
+      "origin": "real-photo",
+      "source": "Wikimedia Commons 收录的综述论文原图（Tang-Yeon Hwang 等）",
+      "author": "Tang-Yeon Hwang, Seung-Taek Myung, Yang-Kook Sun",
+      "url": "https://commons.wikimedia.org/wiki/File:Sodium-ion_battery_systems.png",
+      "license": "CC BY 3.0",
+      "accessed": "2026-10-16",
+      "sha256": "80c3094ce1b14a726acedc87896339010cf1a58ae9e07b440dd195a3a698d32e",
+      "pixels": "1434x813",
+      "format": "PNG"
+    }
+  ]
+}
